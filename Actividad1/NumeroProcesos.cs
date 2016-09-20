@@ -19,6 +19,8 @@ namespace Actividad1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string[] operations = new string[] { "+", "-", "*", "/", "residuo", "potencia", "porcentaje" };
+            Random rnd = new Random();
             int n = (int)numericUpDown1.Value;
             for (int i = 0; i < n; i++)
             {
@@ -27,10 +29,10 @@ namespace Actividad1
 
                 Proceso.procesos.Add(
                         new Proceso(
-                        comboOperacion.Text, Convert.ToInt32(numericDato1.Value),
-                        Convert.ToInt32(numericDato2.Value),
-                        Convert.ToInt32(numericTimeMax.Value),
-                        Convert.ToInt32(numericId.Value), 0)
+                        operations[rnd.Next(0, operations.Length)], rnd.Next(1,100),
+                        rnd.Next(1, 100),
+                        rnd.Next(1, 10),
+                        i, "0")
                         );
 
             }

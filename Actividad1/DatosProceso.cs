@@ -35,7 +35,7 @@ namespace Actividad1
                     comboOperacion.Text, Convert.ToInt32(numericDato1.Value),
                     Convert.ToInt32(numericDato2.Value),
                     Convert.ToInt32(numericTimeMax.Value),
-                    Convert.ToInt32(numericId.Value), 0)
+                    Convert.ToInt32(numericId.Value), "0")
                     );
                 this.Close();
             }

@@ -15,7 +15,7 @@ namespace Actividad1
         int dato1,
         int dato2,
         int tiempoMaximo,
-        int id, int resultado)
+        int id, string resultado)
         {
             Programador = programador;
             Operacion = operacion;
@@ -31,7 +31,7 @@ namespace Actividad1
         int dato1,
         int dato2,
         int tiempoMaximo,
-        int id, int resultado)
+        int id, string resultado)
         {            
             Operacion = operacion;
             Dato1 = dato1;
@@ -47,7 +47,7 @@ namespace Actividad1
         private int dato2;
         private int tiempoMaximo;
         private int id;
-        private int resultado;
+        private string resultado;
         private int tiempoRestante;
         private int tiempoTranscurrido;
         private int lote;
@@ -130,7 +130,7 @@ namespace Actividad1
             }
         }
 
-        public int Resultado
+        public string Resultado
         {
             get
             {
