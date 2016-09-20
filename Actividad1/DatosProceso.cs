@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Actividad1
 {
     public partial class DatosProceso : Form
-    {
+    {// holi
         public DatosProceso()
         {
             InitializeComponent();
