@@ -26,6 +26,21 @@ namespace Actividad1
             Resultado = resultado;
         }
 
+        public Proceso(
+        string operacion,
+        int dato1,
+        int dato2,
+        int tiempoMaximo,
+        int id, int resultado)
+        {            
+            Operacion = operacion;
+            Dato1 = dato1;
+            Dato2 = dato2;
+            TiempoMaximo = tiempoMaximo;
+            Id = id;
+            Resultado = resultado;
+        }
+
         private string programador;
         private string operacion;
         private int dato1;
