@@ -67,10 +67,12 @@ namespace Actividad1
                 {
                     procesoActual.Add(lotes[j][k]);
                     lotePrint.Remove(lotes[j][k]);
-                    for (n = 0; n < lotes[j][k].TiempoMaximo; n++)
+                    int p = lotes[j][k].TiempoMaximo - lotes[j][k].TiempoTranscurrido;
+                    for (n = 0; n < p; n++)
                     {
-                        procesoActual[0].TiempoTranscurrido = n;
-                        procesoActual[0].TiempoRestante = lotes[j][k].TiempoMaximo - n;
+                        //procesoActual[0].TiempoTranscurrido = n;
+                        procesoActual[0].TiempoTranscurrido++;
+                        procesoActual[0].TiempoRestante = p - n;
                         switch (procesoActual[0].Operacion)
                         {
                             case "+":
@@ -109,7 +111,7 @@ namespace Actividad1
                         time++;
                         labelTime.Text = time.ToString();
 
-                        if (flag) { n--; time--; }
+                        if (flag) { n--; time--; procesoActual[0].TiempoTranscurrido--; }
                     }
                     if (n != 51)
                         procesosTerminados.Add(lotes[j][k]);
@@ -141,6 +143,7 @@ namespace Actividad1
                     break;
                 case 'e':
                 case 'E':
+                    procesoActual[0].TiempoRestante = lotes[j][k].TiempoMaximo - lotes[j][k].TiempoTranscurrido;
                     lotePrint.Add(procesoActual[0]);
                     lotes[j].Add(procesoActual[0]);
                     n = 50;

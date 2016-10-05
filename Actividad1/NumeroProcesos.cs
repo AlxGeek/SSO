@@ -31,7 +31,7 @@ namespace Actividad1
                         new Proceso(
                         operations[rnd.Next(0, operations.Length)], rnd.Next(1,100),
                         rnd.Next(1, 100),
-                        rnd.Next(1, 10),
+                        rnd.Next(5, 15),
                         i, "0")
                         );
 
