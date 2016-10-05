@@ -15,7 +15,7 @@ namespace Actividad1
     {
 
 
-        private bool pausa;
+        private bool pausa, noBloqueado;
 
         private int time;
 
@@ -71,7 +71,9 @@ namespace Actividad1
                 procesoEjecucion.Add(procesosListos[0]);
                 procesosListos.RemoveAt(0);
 
-                while (procesoEjecucion[0].TiempoRestante > 0)
+                noBloqueado = true;
+
+                while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
                 {
                  
 
@@ -125,15 +127,16 @@ namespace Actividad1
                     }
                 }
 
-                if (procesoEjecucion[0].TiempoRestante <= 0)
+                if (procesoEjecucion[0].TiempoRestante <= 0 )
                 {
                     procesoEjecucion[0].TiempoFinalización = time;
                     procesoEjecucion[0].TiempoRetorno = procesoEjecucion[0].TiempoFinalización - procesoEjecucion[0].TiempoLlegada;
                     procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
                     procesoEjecucion[0].TiempoEspera = procesoEjecucion[0].TiempoRetorno - procesoEjecucion[0].TiempoServicio;
-                    procesosTerminados.Add(procesoEjecucion[0]);
-                    procesoEjecucion.Clear();
+                    procesosTerminados.Add(procesoEjecucion[0]);                    
                 }
+
+                procesoEjecucion.Clear();
 
                 if ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) != 5
                     && procesosNuevos.Count != 0)
@@ -174,7 +177,7 @@ namespace Actividad1
                 case 'e':
                 case 'E':                  
                     procesosBloqueados.Add(procesoEjecucion[0]);
-                                        
+                    noBloqueado = false;
                     break;
                 default:
                     break;
