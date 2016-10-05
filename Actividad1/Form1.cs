@@ -13,7 +13,7 @@ namespace Actividad1
 
     public partial class Form1 : Form
     {
-        private List<List<Proceso>> lotes = new List<List<Proceso>>();
+        
 
         private bool flag;
 
@@ -21,11 +21,17 @@ namespace Actividad1
 
         private int n, j, k;
 
+        private List<Proceso> procesosNuevos= new List<Proceso>();
+        private List<Proceso> procesosListos = new List<Proceso>();
+        private List<Proceso> procesosEjecucion = new List<Proceso>();
+        private List<Proceso> procesosBloqueados = new List<Proceso>();
+        private List<Proceso> procesosTerminados = new List<Proceso>();
+
         private List<Proceso> procesoActual = new List<Proceso>();
 
-        private List<Proceso> lotePrint;
+        
 
-        private List<Proceso> procesosTerminados = new List<Proceso>();
+        
 
         public Form1()
         {
@@ -34,35 +40,25 @@ namespace Actividad1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            (new NumeroProcesos()).ShowDialog();
-            int i = 0;
-            List<Proceso> temp = new List<Proceso>();
-            int loteN = 1;
+            (new NumeroProcesos()).ShowDialog();            
+                        
             procesoBindingSource1.DataSource = procesoActual;
             procesoBindingSource2.DataSource = procesosTerminados;
             foreach (Proceso proces in Proceso.procesos)
-            {
-                proces.Lote = loteN;
-                temp.Add(proces);
-                i++;
-                if (i == 5)
-                {
-                    loteN++;
-                    i = 0;
-                    lotes.Add(temp);
-                    temp = new List<Proceso>();
-                }
+            {                
+                procesosNuevos.Add(proces);                
             }
-            lotes.Add(temp);
+            
             time = 0;
             labelTime.Text = time.ToString();
+            labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
 
             for (j = 0; j < lotes.Count; j++)
             {
                 lotePrint = new List<Proceso>(lotes[j]);
                 procesoBindingSource.DataSource = lotePrint;
-                labelLA.Text = (j + 1).ToString();
-                labelLP.Text = (lotes.Count - (j + 1)).ToString();
+                
+                
                 for (k = 0; k < lotes[j].Count; k++)
                 {
                     procesoActual.Add(lotes[j][k]);

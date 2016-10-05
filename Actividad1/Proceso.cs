@@ -32,7 +32,7 @@ namespace Actividad1
         int dato2,
         int tiempoMaximo,
         int id, string resultado)
-        {            
+        {
             Operacion = operacion;
             Dato1 = dato1;
             Dato2 = dato2;
@@ -51,6 +51,13 @@ namespace Actividad1
         private int tiempoRestante;
         private int tiempoTranscurrido;
         private int lote;
+
+        private float tiempoLlegada;
+        private float tiempoFinalización;
+        private float tiempoRetorno;
+        private float tiempoRespuesta;
+        private float tiempoEspera;
+        private float tiempoServicio;
 
         public string Programador
         {
@@ -179,6 +186,84 @@ namespace Actividad1
             set
             {
                 lote = value;
+            }
+        }
+
+        public float TiempoServicio
+        {
+            get
+            {
+                return tiempoServicio;
+            }
+
+            set
+            {
+                tiempoServicio = value;
+            }
+        }
+
+        public float TiempoEspera
+        {
+            get
+            {
+                return tiempoEspera;
+            }
+
+            set
+            {
+                tiempoEspera = value;
+            }
+        }
+
+        public float TiempoRespuesta
+        {
+            get
+            {
+                return tiempoRespuesta;
+            }
+
+            set
+            {
+                tiempoRespuesta = value;
+            }
+        }
+
+        public float TiempoRetorno
+        {
+            get
+            {
+                return tiempoRetorno;
+            }
+
+            set
+            {
+                tiempoRetorno = value;
+            }
+        }
+
+        public float TiempoFinalización
+        {
+            get
+            {
+                return tiempoFinalización;
+            }
+
+            set
+            {
+                tiempoFinalización = value;
+            }
+        }
+
+        public float TiempoLlegada
+        {
+            get
+            {
+                return tiempoLlegada;
+            }
+
+            set
+            {
+                tiempoLlegada = value;
             }
         }
     }
