@@ -19,19 +19,13 @@ namespace Actividad1
 
         private int time;
 
-        private int n, j, k;
+        private int n;
 
         private List<Proceso> procesosNuevos = new List<Proceso>();
         private List<Proceso> procesosListos = new List<Proceso>();
         private List<Proceso> procesoEjecucion = new List<Proceso>();
         private List<Proceso> procesosBloqueados = new List<Proceso>();
         private List<Proceso> procesosTerminados = new List<Proceso>();
-
-        private List<Proceso> procesoActual = new List<Proceso>();
-
-
-
-
 
         public Form1()
         {
@@ -40,6 +34,13 @@ namespace Actividad1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            procesosListosBS.DataSource = procesosListos;
+            procesosBloqueadosBS.DataSource = procesosBloqueados;
+            procesoActualBS.DataSource = procesoEjecucion;
+            procesosTerminadosBS.DataSource = procesosTerminados;
+
+
+
             (new NumeroProcesos()).ShowDialog();
 
             foreach (Proceso proces in Proceso.procesos)
@@ -51,120 +52,87 @@ namespace Actividad1
             labelTime.Text = time.ToString();
             labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
 
-
-            for (int i = 0; i < 5; i++)
+            int i = 0;
+            while (procesosNuevos.Count > 0)
             {
+                if (i == 5)
+                    break;
                 procesosNuevos[0].TiempoLlegada = time;
                 procesosListos.Add(procesosNuevos[0]);
                 procesosNuevos.RemoveAt(0);
+                i++;
+
             }
 
-            while (procesosNuevos.Count != 0)
+
+            while (procesosListos.Count > 0)
             {
 
                 procesoEjecucion.Add(procesosListos[0]);
                 procesosListos.RemoveAt(0);
-                
-                for (n = 0; n < procesoEjecucion[0].TiempoMaximo; n++)
+
+                while (procesoEjecucion[0].TiempoRestante > 0)
                 {
-                    procesoActual[0].TiempoTranscurrido++;
-                    procesoActual[0].TiempoRestante = procesoEjecucion[0].TiempoMaximo - procesoActual[0].TiempoTranscurrido;
-                    switch (procesoActual[0].Operacion)
+                    procesoEjecucion[0].TiempoTranscurrido++;
+                    procesoEjecucion[0].TiempoRestante--;
+                    switch (procesoEjecucion[0].Operacion)
                     {
                         case "+":
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 + lotes[j][k].Dato2).ToString();
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 + procesoEjecucion[0].Dato2).ToString();
                             break;
                         case "-":
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 - lotes[j][k].Dato2).ToString();
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 - procesoEjecucion[0].Dato2).ToString();
                             break;
                         case "*":
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 * lotes[j][k].Dato2).ToString();
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2).ToString();
                             break;
                         case "/":
-                            if (lotes[j][k].Dato2 == 0) lotes[j][k].Dato2 = 1;
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 / lotes[j][k].Dato2).ToString();
+                            if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 / procesoEjecucion[0].Dato2).ToString();
                             break;
                         case "residuo":
-                            if (lotes[j][k].Dato2 == 0) lotes[j][k].Dato2 = 1;
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 % lotes[j][k].Dato2).ToString();
+                            if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 % procesoEjecucion[0].Dato2).ToString();
                             break;
                         case "potencia":
-                            lotes[j][k].Resultado = ((int)(Math.Pow(Convert.ToDouble(lotes[j][k].Dato1), Convert.ToDouble(lotes[j][k].Dato2)))).ToString();
+                            procesoEjecucion[0].Resultado = ((int)(Math.Pow(Convert.ToDouble(procesoEjecucion[0].Dato1), Convert.ToDouble(procesoEjecucion[0].Dato2)))).ToString();
                             break;
                         case "porcentaje":
-                            lotes[j][k].Resultado = (lotes[j][k].Dato1 * lotes[j][k].Dato2 / 100).ToString();
+                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2 / 100).ToString();
                             break;
                         default:
                             break;
                     }
 
+
+                    System.Threading.Thread.Sleep(500);
+                    time++;
+                    labelTime.Text = time.ToString();
+
                 }
 
-
-                for (j = 0; j < lotes.Count; j++)
+                if (procesoEjecucion[0].TiempoRestante <= 0)
                 {
-                    lotePrint = new List<Proceso>(lotes[j]);
-                    procesoBindingSource.DataSource = lotePrint;
-
-
-                    for (k = 0; k < lotes[j].Count; k++)
-                    {
-                        procesoActual.Add(lotes[j][k]);
-                        lotePrint.Remove(lotes[j][k]);
-                        for (n = 0; n < lotes[j][k].TiempoMaximo; n++)
-                        {
-                            procesoActual[0].TiempoTranscurrido = n;
-                            procesoActual[0].TiempoRestante = lotes[j][k].TiempoMaximo - n;
-                            switch (procesoActual[0].Operacion)
-                            {
-                                case "+":
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 + lotes[j][k].Dato2).ToString();
-                                    break;
-                                case "-":
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 - lotes[j][k].Dato2).ToString();
-                                    break;
-                                case "*":
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 * lotes[j][k].Dato2).ToString();
-                                    break;
-                                case "/":
-                                    if (lotes[j][k].Dato2 == 0) lotes[j][k].Dato2 = 1;
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 / lotes[j][k].Dato2).ToString();
-                                    break;
-                                case "residuo":
-                                    if (lotes[j][k].Dato2 == 0) lotes[j][k].Dato2 = 1;
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 % lotes[j][k].Dato2).ToString();
-                                    break;
-                                case "potencia":
-                                    lotes[j][k].Resultado = ((int)(Math.Pow(Convert.ToDouble(lotes[j][k].Dato1), Convert.ToDouble(lotes[j][k].Dato2)))).ToString();
-                                    break;
-                                case "porcentaje":
-                                    lotes[j][k].Resultado = (lotes[j][k].Dato1 * lotes[j][k].Dato2 / 100).ToString();
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            procesoBindingSource1.ResetBindings(false);
-                            procesoBindingSource.ResetBindings(false);
-
-                            Application.DoEvents();
-
-                            System.Threading.Thread.Sleep(500);
-                            time++;
-                            labelTime.Text = time.ToString();
-
-                            if (flag) { n--; time--; }
-                        }
-                        if (n != 51)
-                            procesosTerminados.Add(lotes[j][k]);
-                        procesoBindingSource2.ResetBindings(false);
-                        procesoActual.Clear();
-                    }
-
+                    procesosTerminados.Add(procesoEjecucion[0]);
+                    procesoEjecucion.Clear();
                 }
-                procesoActual.Add(new Proceso("", "", 0, 0, 0, 0, "0"));
 
+                if (procesosListos.Count < 4 && procesosNuevos.Count != 0)
+                {
+                    procesosNuevos[0].TiempoLlegada = time;
+                    procesosListos.Add(procesosNuevos[0]);
+                    procesosNuevos.RemoveAt(0);
+                }
+
+                //procesosListosBS.ResetBindings(false);
+                Application.DoEvents();
+
+                //                    if (flag) { n--; time--; }
+
+
+                procesoEjecucion.Add(new Proceso("", "", 0, 0, 0, 0, "0"));
             }
+        }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -172,8 +140,8 @@ namespace Actividad1
             {
                 case 'w':
                 case 'W':
-                    n = lotes[j][k].TiempoMaximo;
-                    lotes[j][k].Resultado = "ERROR";
+                    procesoEjecucion[0].TiempoRestante = 0;
+                    procesoEjecucion[0].Resultado = "ERROR";
                     break;
                 case 'p':
                 case 'P':
@@ -185,9 +153,9 @@ namespace Actividad1
                     break;
                 case 'e':
                 case 'E':
-                    lotePrint.Add(procesoActual[0]);
-                    lotes[j].Add(procesoActual[0]);
-                    n = 50;
+                    //lotePrint.Add(procesoActual[0]);
+                    //lotes[j].Add(procesoActual[0]);
+                    //n = 50;
                     break;
                 default:
                     break;
