@@ -39,6 +39,9 @@ namespace Actividad1
             TiempoMaximo = tiempoMaximo;
             Id = id;
             Resultado = resultado;
+
+            TiempoTranscurrido = 0;
+            TiempoBloqueado = 0;
         }
 
         private string programador;
@@ -58,6 +61,8 @@ namespace Actividad1
         private float tiempoRespuesta;
         private float tiempoEspera;
         private float tiempoServicio;
+        private float tiempoBloqueado;
+
 
         public string Programador
         {
@@ -264,6 +269,19 @@ namespace Actividad1
             set
             {
                 tiempoLlegada = value;
+            }
+        }
+
+        public float TiempoBloqueado
+        {
+            get
+            {
+                return tiempoBloqueado;
+            }
+
+            set
+            {
+                tiempoBloqueado = value;
             }
         }
     }
