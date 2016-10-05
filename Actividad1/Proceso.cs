@@ -36,12 +36,13 @@ namespace Actividad1
             Operacion = operacion;
             Dato1 = dato1;
             Dato2 = dato2;
-            TiempoMaximo = tiempoMaximo;
+            TiempoRestante = TiempoMaximo = tiempoMaximo;
             Id = id;
             Resultado = resultado;
 
             TiempoTranscurrido = 0;
             TiempoBloqueado = 0;
+            TiempoEspera = 0;
         }
 
         private string programador;

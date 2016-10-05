@@ -15,7 +15,7 @@ namespace Actividad1
     {
 
 
-        private bool flag;
+        private bool pausa;
 
         private int time;
 
@@ -67,12 +67,14 @@ namespace Actividad1
 
             while (procesosListos.Count > 0)
             {
-
+                labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
                 procesoEjecucion.Add(procesosListos[0]);
                 procesosListos.RemoveAt(0);
 
                 while (procesoEjecucion[0].TiempoRestante > 0)
                 {
+                 
+
                     procesoEjecucion[0].TiempoTranscurrido++;
                     procesoEjecucion[0].TiempoRestante--;
                     switch (procesoEjecucion[0].Operacion)
@@ -104,34 +106,52 @@ namespace Actividad1
                             break;
                     }
 
-
                     System.Threading.Thread.Sleep(500);
                     time++;
                     labelTime.Text = time.ToString();
 
+                    procesosListosBS.ResetBindings(false);
+                    procesosBloqueadosBS.ResetBindings(false);
+                    procesosTerminadosBS.ResetBindings(false);
+                    procesoActualBS.ResetBindings(false);
+
+                    Application.DoEvents();
+
+                    if (pausa)
+                    {
+                        procesoEjecucion[0].TiempoTranscurrido--;
+                        procesoEjecucion[0].TiempoRestante++;
+                        time--;
+                    }
                 }
 
                 if (procesoEjecucion[0].TiempoRestante <= 0)
                 {
+                    procesoEjecucion[0].TiempoFinalización = time;
+                    procesoEjecucion[0].TiempoRetorno = procesoEjecucion[0].TiempoFinalización - procesoEjecucion[0].TiempoLlegada;
+                    procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
+                    procesoEjecucion[0].TiempoEspera = procesoEjecucion[0].TiempoRetorno - procesoEjecucion[0].TiempoServicio;
                     procesosTerminados.Add(procesoEjecucion[0]);
                     procesoEjecucion.Clear();
                 }
 
-                if (procesosListos.Count < 4 && procesosNuevos.Count != 0)
+                if ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) != 5
+                    && procesosNuevos.Count != 0)
                 {
                     procesosNuevos[0].TiempoLlegada = time;
                     procesosListos.Add(procesosNuevos[0]);
                     procesosNuevos.RemoveAt(0);
+
                 }
 
-                //procesosListosBS.ResetBindings(false);
-                Application.DoEvents();
 
-                //                    if (flag) { n--; time--; }
-
-
-                procesoEjecucion.Add(new Proceso("", "", 0, 0, 0, 0, "0"));
             }
+
+            procesoEjecucion.Add(new Proceso("", "", 0, 0, 0, 0, "0"));
+            procesosListosBS.ResetBindings(false);
+            procesosBloqueadosBS.ResetBindings(false);
+            procesosTerminadosBS.ResetBindings(false);
+            procesoActualBS.ResetBindings(false);
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -145,17 +165,16 @@ namespace Actividad1
                     break;
                 case 'p':
                 case 'P':
-                    flag = true;
+                    pausa = true;
                     break;
                 case 'c':
                 case 'C':
-                    flag = false;
+                    pausa = false;
                     break;
                 case 'e':
-                case 'E':
-                    //lotePrint.Add(procesoActual[0]);
-                    //lotes[j].Add(procesoActual[0]);
-                    //n = 50;
+                case 'E':                  
+                    procesosBloqueados.Add(procesoEjecucion[0]);
+                                        
                     break;
                 default:
                     break;
