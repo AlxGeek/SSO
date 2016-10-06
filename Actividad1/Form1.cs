@@ -65,78 +65,148 @@ namespace Actividad1
             }
 
 
-            while (procesosListos.Count > 0)
+            while (procesosListos.Count > 0 || procesosBloqueados.Count > 0)
             {
-                labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
-                procesoEjecucion.Add(procesosListos[0]);
-                procesosListos.RemoveAt(0);
-
                 noBloqueado = true;
+                labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
 
-                while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
+                if (procesosListos.Count > 0)
                 {
-                 
+                    procesoEjecucion.Add(procesosListos[0]);
+                    procesosListos.RemoveAt(0);
 
-                    procesoEjecucion[0].TiempoTranscurrido++;
-                    procesoEjecucion[0].TiempoRestante--;
-                    switch (procesoEjecucion[0].Operacion)
+                    if (procesoEjecucion[0].TiempoRespuesta == -1)
                     {
-                        case "+":
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 + procesoEjecucion[0].Dato2).ToString();
-                            break;
-                        case "-":
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 - procesoEjecucion[0].Dato2).ToString();
-                            break;
-                        case "*":
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2).ToString();
-                            break;
-                        case "/":
-                            if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 / procesoEjecucion[0].Dato2).ToString();
-                            break;
-                        case "residuo":
-                            if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 % procesoEjecucion[0].Dato2).ToString();
-                            break;
-                        case "potencia":
-                            procesoEjecucion[0].Resultado = ((int)(Math.Pow(Convert.ToDouble(procesoEjecucion[0].Dato1), Convert.ToDouble(procesoEjecucion[0].Dato2)))).ToString();
-                            break;
-                        case "porcentaje":
-                            procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2 / 100).ToString();
-                            break;
-                        default:
-                            break;
+                        procesoEjecucion[0].TiempoRespuesta = time - procesoEjecucion[0].TiempoLlegada;
                     }
 
-                    System.Threading.Thread.Sleep(500);
-                    time++;
-                    labelTime.Text = time.ToString();
 
-                    procesosListosBS.ResetBindings(false);
-                    procesosBloqueadosBS.ResetBindings(false);
-                    procesosTerminadosBS.ResetBindings(false);
-                    procesoActualBS.ResetBindings(false);
-
-                    Application.DoEvents();
-
-                    if (pausa)
+                    while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
                     {
-                        procesoEjecucion[0].TiempoTranscurrido--;
-                        procesoEjecucion[0].TiempoRestante++;
-                        time--;
+                        foreach (Proceso p in procesosBloqueados)
+                        {
+                            p.TiempoBloqueado++;
+                        }
+
+                        for (int j = 0; j < procesosBloqueados.Count; j++)
+                        {
+                            if (procesosBloqueados[j].TiempoBloqueado >= 8)
+                            {
+                                procesosListos.Add(procesosBloqueados[j]);
+                                procesosBloqueados.RemoveAt(j);
+                                j--;
+                            }
+                        }
+
+                        procesoEjecucion[0].TiempoTranscurrido++;
+                        procesoEjecucion[0].TiempoRestante--;
+
+
+                        switch (procesoEjecucion[0].Operacion)
+                        {
+                            case "+":
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 + procesoEjecucion[0].Dato2).ToString();
+                                break;
+                            case "-":
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 - procesoEjecucion[0].Dato2).ToString();
+                                break;
+                            case "*":
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2).ToString();
+                                break;
+                            case "/":
+                                if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 / procesoEjecucion[0].Dato2).ToString();
+                                break;
+                            case "residuo":
+                                if (procesoEjecucion[0].Dato2 == 0) procesoEjecucion[0].Dato2 = 1;
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 % procesoEjecucion[0].Dato2).ToString();
+                                break;
+                            case "potencia":
+                                procesoEjecucion[0].Resultado = ((int)(Math.Pow(Convert.ToDouble(procesoEjecucion[0].Dato1), Convert.ToDouble(procesoEjecucion[0].Dato2)))).ToString();
+                                break;
+                            case "porcentaje":
+                                procesoEjecucion[0].Resultado = (procesoEjecucion[0].Dato1 * procesoEjecucion[0].Dato2 / 100).ToString();
+                                break;
+                            default:
+                                break;
+                        }
+
+                        System.Threading.Thread.Sleep(500);
+                        time++;
+                        labelTime.Text = time.ToString();
+
+                        procesosListosBS.ResetBindings(false);
+                        procesosBloqueadosBS.ResetBindings(false);
+                        procesosTerminadosBS.ResetBindings(false);
+                        procesoActualBS.ResetBindings(false);
+
+                        Application.DoEvents();
+
+                        if (pausa)
+                        {
+                            procesoEjecucion[0].TiempoTranscurrido--;
+                            procesoEjecucion[0].TiempoRestante++;
+                            time--;
+                        }
+                    }
+
+                    if (procesoEjecucion[0].TiempoRestante <= 0)
+                    {
+                        procesoEjecucion[0].TiempoFinalización = time;
+                        procesoEjecucion[0].TiempoRetorno = procesoEjecucion[0].TiempoFinalización - procesoEjecucion[0].TiempoLlegada;
+                        procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
+                        procesoEjecucion[0].TiempoEspera = procesoEjecucion[0].TiempoRetorno - procesoEjecucion[0].TiempoServicio;
+                        if (procesoEjecucion[0].Id != -1)
+                        {
+                            procesosTerminados.Add(procesoEjecucion[0]);
+                        }
+                    }
+
+                    procesoEjecucion.Clear();
+
+                }
+                else
+                {
+                    procesoEjecucion.Add(new Proceso("", "", 0, 0, 0, -1, "0"));
+                    while (procesosListos.Count <= 0)
+                    {
+
+                        foreach (Proceso p in procesosBloqueados)
+                        {
+                            p.TiempoBloqueado++;
+                        }
+
+                        for (int j = 0; j < procesosBloqueados.Count; j++)
+                        {
+                            if (procesosBloqueados[j].TiempoBloqueado >= 8)
+                            {
+                                procesosListos.Add(procesosBloqueados[j]);
+                                procesosBloqueados.RemoveAt(j);
+                                j--;
+                            }
+                        }                        
+
+                        System.Threading.Thread.Sleep(500);
+                        time++;
+                        labelTime.Text = time.ToString();
+
+                        procesosListosBS.ResetBindings(false);
+                        procesosBloqueadosBS.ResetBindings(false);
+                        procesosTerminadosBS.ResetBindings(false);
+                        procesoActualBS.ResetBindings(false);
+
+                        Application.DoEvents();
+
+                        if (pausa)
+                        {                            
+                            time--;
+                        }
+
+                        procesoEjecucion.Clear();
                     }
                 }
 
-                if (procesoEjecucion[0].TiempoRestante <= 0 )
-                {
-                    procesoEjecucion[0].TiempoFinalización = time;
-                    procesoEjecucion[0].TiempoRetorno = procesoEjecucion[0].TiempoFinalización - procesoEjecucion[0].TiempoLlegada;
-                    procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
-                    procesoEjecucion[0].TiempoEspera = procesoEjecucion[0].TiempoRetorno - procesoEjecucion[0].TiempoServicio;
-                    procesosTerminados.Add(procesoEjecucion[0]);                    
-                }
-
-                procesoEjecucion.Clear();
+                
 
                 if ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) != 5
                     && procesosNuevos.Count != 0)
@@ -175,7 +245,8 @@ namespace Actividad1
                     pausa = false;
                     break;
                 case 'e':
-                case 'E':                  
+                case 'E':
+                    procesoEjecucion[0].TiempoBloqueado = 0;
                     procesosBloqueados.Add(procesoEjecucion[0]);
                     noBloqueado = false;
                     break;

@@ -43,6 +43,7 @@ namespace Actividad1
             TiempoTranscurrido = 0;
             TiempoBloqueado = 0;
             TiempoEspera = 0;
+            TiempoRespuesta = -1;
         }
 
         private string programador;
