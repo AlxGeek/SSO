@@ -19,6 +19,8 @@ namespace Actividad1
 
         private int time;
 
+        private int quantum = 4;
+
         private int n;
 
         private List<Proceso> procesosNuevos = new List<Proceso>();
@@ -83,9 +85,10 @@ namespace Actividad1
                         procesoEjecucion[0].TiempoRespuesta = time - procesoEjecucion[0].TiempoLlegada;
                     }
 
-
+                    int nquantum = 0; 
                     while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
                     {
+                        nquantum++;
                         foreach (Proceso p in procesosBloqueados)
                         {
                             p.TiempoBloqueado++;
@@ -93,7 +96,7 @@ namespace Actividad1
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
                         {
-                            if (procesosBloqueados[j].TiempoBloqueado >= 8)
+                            if (procesosBloqueados[j].TiempoBloqueado >= 10)
                             {
                                 procesosBloqueados[j].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
@@ -155,6 +158,13 @@ namespace Actividad1
                             procesoEjecucion[0].TiempoRestante++;
                             time--;
                         }
+                        
+                        if (nquantum > quantum+1 && procesoEjecucion[0].TiempoRestante != 0)
+                        {
+                            procesosListos.Add(procesoEjecucion[0]);
+                            break;
+                        }
+                        nquantum++;
                     }
 
                     if (procesoEjecucion[0].TiempoRestante <= 0)
@@ -186,7 +196,7 @@ namespace Actividad1
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
                         {
-                            if (procesosBloqueados[j].TiempoBloqueado >= 8)
+                            if (procesosBloqueados[j].TiempoBloqueado >= 10)
                             {
                                 procesosBloqueados[j].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
