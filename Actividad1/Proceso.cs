@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Actividad1
 {
-    class Proceso
+    public class Proceso
     {
         public static List<Proceso> procesos = new List<Proceso>();
 
@@ -46,6 +46,27 @@ namespace Actividad1
             TiempoRespuesta = -1;
         }
 
+        public Proceso(
+        string operacion,
+        int dato1,
+        int dato2,
+        int tiempoMaximo,
+        int id, string resultado, string estado)
+        {
+            Operacion = operacion;
+            Dato1 = dato1;
+            Dato2 = dato2;
+            TiempoRestante = TiempoMaximo = tiempoMaximo;
+            Id = id;
+            Resultado = resultado;
+            Estado = estado;
+
+            TiempoTranscurrido = 0;
+            TiempoBloqueado = 0;
+            TiempoEspera = 0;
+            TiempoRespuesta = -1;
+        }
+
         private string programador;
         private string operacion;
         private int dato1;
@@ -56,6 +77,8 @@ namespace Actividad1
         private int tiempoRestante;
         private int tiempoTranscurrido;
         private int lote;
+
+        private string estado;
 
         private float tiempoLlegada;
         private float tiempoFinalización;
@@ -284,6 +307,19 @@ namespace Actividad1
             set
             {
                 tiempoBloqueado = value;
+            }
+        }
+
+        public string Estado
+        {
+            get
+            {
+                return estado;
+            }
+
+            set
+            {
+                estado = value;
             }
         }
     }

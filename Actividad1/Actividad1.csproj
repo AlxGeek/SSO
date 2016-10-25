@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BCP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BCP.Designer.cs">
+      <DependentUpon>BCP.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatosProceso.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="NumeroProcesos.Designer.cs">
       <DependentUpon>NumeroProcesos.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BCP.resx">
+      <DependentUpon>BCP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DatosProceso.resx">
       <DependentUpon>DatosProceso.cs</DependentUpon>
     </EmbeddedResource>

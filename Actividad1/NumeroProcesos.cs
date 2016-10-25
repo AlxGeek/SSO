@@ -17,12 +17,16 @@ namespace Actividad1
             InitializeComponent();
         }
 
+        static public int i;
+        static public string[] operations = new string[] { "+", "-", "*", "/", "residuo", "potencia", "porcentaje" };
+        static public Random rnd = new Random();
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] operations = new string[] { "+", "-", "*", "/", "residuo", "potencia", "porcentaje" };
-            Random rnd = new Random();
+            
             int n = (int)numericUpDown1.Value;
-            for (int i = 0; i < n; i++)
+            
+            for (i = 0; i < n; i++)
             {
                 //DatosProceso dp= new DatosProceso();
                 //dp.ShowDialog();
@@ -31,7 +35,7 @@ namespace Actividad1
                         new Proceso(
                         operations[rnd.Next(0, operations.Length)], rnd.Next(1,100),
                         rnd.Next(1, 100),
-                        rnd.Next(1, 10),
+                        rnd.Next(5, 15),
                         i, "0")
                         );
 

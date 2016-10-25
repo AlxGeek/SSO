@@ -45,6 +45,7 @@ namespace Actividad1
 
             foreach (Proceso proces in Proceso.procesos)
             {
+                proces.Estado = "Nuevo";
                 procesosNuevos.Add(proces);
             }
 
@@ -58,6 +59,7 @@ namespace Actividad1
                 if (i == 5)
                     break;
                 procesosNuevos[0].TiempoLlegada = time;
+                procesosNuevos[0].Estado = "Listo";
                 procesosListos.Add(procesosNuevos[0]);
                 procesosNuevos.RemoveAt(0);
                 i++;
@@ -72,6 +74,7 @@ namespace Actividad1
 
                 if (procesosListos.Count > 0)
                 {
+                    procesosListos[0].Estado = "Ejecucion";
                     procesoEjecucion.Add(procesosListos[0]);
                     procesosListos.RemoveAt(0);
 
@@ -92,6 +95,7 @@ namespace Actividad1
                         {
                             if (procesosBloqueados[j].TiempoBloqueado >= 8)
                             {
+                                procesosBloqueados[j].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
                                 procesosBloqueados.RemoveAt(j);
                                 j--;
@@ -144,7 +148,10 @@ namespace Actividad1
 
                         if (pausa)
                         {
+                            foreach (Proceso p in procesosBloqueados)
+                                p.TiempoBloqueado--;
                             procesoEjecucion[0].TiempoTranscurrido--;
+                            procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
                             procesoEjecucion[0].TiempoRestante++;
                             time--;
                         }
@@ -158,6 +165,7 @@ namespace Actividad1
                         procesoEjecucion[0].TiempoEspera = procesoEjecucion[0].TiempoRetorno - procesoEjecucion[0].TiempoServicio;
                         if (procesoEjecucion[0].Id != -1)
                         {
+                            procesoEjecucion[0].Estado = "Terminado";
                             procesosTerminados.Add(procesoEjecucion[0]);
                         }
                     }
@@ -180,6 +188,7 @@ namespace Actividad1
                         {
                             if (procesosBloqueados[j].TiempoBloqueado >= 8)
                             {
+                                procesosBloqueados[j].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
                                 procesosBloqueados.RemoveAt(j);
                                 j--;
@@ -198,7 +207,9 @@ namespace Actividad1
                         Application.DoEvents();
 
                         if (pausa)
-                        {                            
+                        {
+                            foreach (Proceso p in procesosBloqueados)
+                                p.TiempoBloqueado--;
                             time--;
                         }
 
@@ -208,10 +219,11 @@ namespace Actividad1
 
                 
 
-                if ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) != 5
+                while ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) < 5
                     && procesosNuevos.Count != 0)
                 {
                     procesosNuevos[0].TiempoLlegada = time;
+                    procesosNuevos[0].Estado = "Listo";
                     procesosListos.Add(procesosNuevos[0]);
                     procesosNuevos.RemoveAt(0);
 
@@ -231,6 +243,25 @@ namespace Actividad1
         {
             switch (e.KeyChar)
             {
+                case 'b':
+                case 'B':
+                    List<Proceso> allProcess = procesosNuevos.Concat(procesosListos.Concat(procesoEjecucion.Concat(procesosBloqueados.Concat(procesosTerminados).ToList()).ToList()).ToList()).ToList();         
+                    BCP bcp = new BCP(allProcess);
+                    bcp.ShowDialog();
+                    break;
+                case 'u':
+                case 'U':
+                    procesosNuevos.Add(
+                        new Proceso(
+                        NumeroProcesos.operations[NumeroProcesos.rnd.Next(0, NumeroProcesos.operations.Length)], NumeroProcesos.rnd.Next(1, 100),
+                        NumeroProcesos.rnd.Next(1, 100),
+                        NumeroProcesos.rnd.Next(5, 15),
+                        NumeroProcesos.i++, "0", "Nuevo")
+                        );
+                    
+                    labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
+
+                    break;
                 case 'w':
                 case 'W':
                     procesoEjecucion[0].TiempoRestante = 0;
@@ -246,9 +277,13 @@ namespace Actividad1
                     break;
                 case 'e':
                 case 'E':
-                    procesoEjecucion[0].TiempoBloqueado = 0;
-                    procesosBloqueados.Add(procesoEjecucion[0]);
-                    noBloqueado = false;
+                    if (procesoEjecucion.Count != 0 && procesoEjecucion[0].Id != -1)
+                    {
+                        procesoEjecucion[0].TiempoBloqueado = 0;
+                        procesoEjecucion[0].Estado = "Bloqueado";
+                        procesosBloqueados.Add(procesoEjecucion[0]);
+                        noBloqueado = false;
+                    }
                     break;
                 default:
                     break;
