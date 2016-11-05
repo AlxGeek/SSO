@@ -19,7 +19,7 @@ namespace Actividad1
 
         private int time;
 
-        private int quantum = 4;
+        static public int quantum = 4;
 
         private int n;
 
@@ -87,11 +87,15 @@ namespace Actividad1
 
                     int nquantum = 0; 
                     while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
-                    {
-                        nquantum++;
+                    {                        
                         foreach (Proceso p in procesosBloqueados)
                         {
                             p.TiempoBloqueado++;
+                        }
+
+                        foreach (Proceso p in procesosListos)
+                        {
+                            p.TiempoEspera++;
                         }
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
@@ -157,14 +161,16 @@ namespace Actividad1
                             procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
                             procesoEjecucion[0].TiempoRestante++;
                             time--;
+                            nquantum--;
                         }
-                        
-                        if (nquantum > quantum+1 && procesoEjecucion[0].TiempoRestante != 0)
+
+                        nquantum++;
+                        if (nquantum >= quantum && procesoEjecucion[0].TiempoRestante != 0)
                         {
                             procesosListos.Add(procesoEjecucion[0]);
                             break;
                         }
-                        nquantum++;
+                        
                     }
 
                     if (procesoEjecucion[0].TiempoRestante <= 0)
@@ -192,6 +198,11 @@ namespace Actividad1
                         foreach (Proceso p in procesosBloqueados)
                         {
                             p.TiempoBloqueado++;
+                        }
+
+                        foreach (Proceso p in procesosListos)
+                        {
+                            p.TiempoEspera++;
                         }
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
@@ -249,13 +260,27 @@ namespace Actividad1
             procesoActualBS.ResetBindings(false);
         }
 
+        private void buttonQuantum_Click(object sender, EventArgs e)
+        {
+            DialogQuantum dg = new DialogQuantum();
+            dg.ShowDialog();
+            quantumLabel.Text = quantum.ToString();
+        }
+
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
             {
                 case 'b':
                 case 'B':
-                    List<Proceso> allProcess = procesosNuevos.Concat(procesosListos.Concat(procesoEjecucion.Concat(procesosBloqueados.Concat(procesosTerminados).ToList()).ToList()).ToList()).ToList();         
+                    List<Proceso> allProcess = procesosNuevos.Concat(procesosListos.Concat(procesoEjecucion.Concat(procesosBloqueados.Concat(procesosTerminados).ToList()).ToList()).ToList()).ToList();
+                    foreach (Proceso p in allProcess) {
+                        //p.TiempoFinalización = time;
+                        //p.TiempoRetorno = p.TiempoFinalización - p.TiempoLlegada;
+                        p.TiempoServicio = p.TiempoTranscurrido;
+                        //p.TiempoEspera = p.TiempoRetorno - p.TiempoServicio;
+
+                    }
                     BCP bcp = new BCP(allProcess);
                     bcp.ShowDialog();
                     break;

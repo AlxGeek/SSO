@@ -35,6 +35,12 @@
             this.TiempoRestante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.TiempoLlegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TiempoFinalización = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TiempoRetorno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TiempoRespuesta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TiempoEspera = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TiempoServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.labelTime = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -44,17 +50,16 @@
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.TiempoBloqueado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.quantumLabel = new System.Windows.Forms.Label();
+            this.buttonQuantum = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.procesosBloqueadosBS = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operacionDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tiempoMaximoDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.procesosTerminadosBS = new System.Windows.Forms.BindingSource(this.components);
-            this.procesoActualBS = new System.Windows.Forms.BindingSource(this.components);
-            this.programadorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dato1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dato2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoMaximoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.procesosListosBS = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.programadorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operacionDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,16 +68,14 @@
             this.tiempoMaximoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoRestanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoTranscurridoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operacionDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoLlegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoFinalización = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoRetorno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoRespuesta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoEspera = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TiempoServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoMaximoDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procesoActualBS = new System.Windows.Forms.BindingSource(this.components);
+            this.programadorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dato1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dato2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tiempoMaximoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procesosListosBS = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -176,10 +179,52 @@
             this.dataGridView3.Size = new System.Drawing.Size(899, 248);
             this.dataGridView3.TabIndex = 6;
             // 
+            // TiempoLlegada
+            // 
+            this.TiempoLlegada.DataPropertyName = "TiempoLlegada";
+            this.TiempoLlegada.HeaderText = "TiempoLlegada";
+            this.TiempoLlegada.Name = "TiempoLlegada";
+            this.TiempoLlegada.ReadOnly = true;
+            // 
+            // TiempoFinalización
+            // 
+            this.TiempoFinalización.DataPropertyName = "TiempoFinalización";
+            this.TiempoFinalización.HeaderText = "TiempoFinalización";
+            this.TiempoFinalización.Name = "TiempoFinalización";
+            this.TiempoFinalización.ReadOnly = true;
+            // 
+            // TiempoRetorno
+            // 
+            this.TiempoRetorno.DataPropertyName = "TiempoRetorno";
+            this.TiempoRetorno.HeaderText = "TiempoRetorno";
+            this.TiempoRetorno.Name = "TiempoRetorno";
+            this.TiempoRetorno.ReadOnly = true;
+            // 
+            // TiempoRespuesta
+            // 
+            this.TiempoRespuesta.DataPropertyName = "TiempoRespuesta";
+            this.TiempoRespuesta.HeaderText = "TiempoRespuesta";
+            this.TiempoRespuesta.Name = "TiempoRespuesta";
+            this.TiempoRespuesta.ReadOnly = true;
+            // 
+            // TiempoEspera
+            // 
+            this.TiempoEspera.DataPropertyName = "TiempoEspera";
+            this.TiempoEspera.HeaderText = "TiempoEspera";
+            this.TiempoEspera.Name = "TiempoEspera";
+            this.TiempoEspera.ReadOnly = true;
+            // 
+            // TiempoServicio
+            // 
+            this.TiempoServicio.DataPropertyName = "TiempoServicio";
+            this.TiempoServicio.HeaderText = "TiempoServicio";
+            this.TiempoServicio.Name = "TiempoServicio";
+            this.TiempoServicio.ReadOnly = true;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(680, 27);
+            this.label5.Location = new System.Drawing.Point(605, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 7;
@@ -188,7 +233,7 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(741, 27);
+            this.labelTime.Location = new System.Drawing.Point(666, 27);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(13, 13);
             this.labelTime.TabIndex = 8;
@@ -223,7 +268,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(817, 22);
+            this.button1.Location = new System.Drawing.Point(763, 22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 12;
@@ -264,6 +309,34 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Procesos Bloqueados";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(218, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Valor de Quantum: ";
+            // 
+            // quantumLabel
+            // 
+            this.quantumLabel.AutoSize = true;
+            this.quantumLabel.Location = new System.Drawing.Point(334, 27);
+            this.quantumLabel.Name = "quantumLabel";
+            this.quantumLabel.Size = new System.Drawing.Size(13, 13);
+            this.quantumLabel.TabIndex = 16;
+            this.quantumLabel.Text = "4";
+            // 
+            // buttonQuantum
+            // 
+            this.buttonQuantum.Location = new System.Drawing.Point(871, 22);
+            this.buttonQuantum.Name = "buttonQuantum";
+            this.buttonQuantum.Size = new System.Drawing.Size(75, 23);
+            this.buttonQuantum.TabIndex = 17;
+            this.buttonQuantum.Text = "Quantum";
+            this.buttonQuantum.UseVisualStyleBackColor = true;
+            this.buttonQuantum.Click += new System.EventHandler(this.buttonQuantum_Click);
+            // 
             // idDataGridViewTextBoxColumn3
             // 
             this.idDataGridViewTextBoxColumn3.DataPropertyName = "Id";
@@ -275,63 +348,39 @@
             // 
             this.procesosBloqueadosBS.DataSource = typeof(Actividad1.Proceso);
             // 
+            // idDataGridViewTextBoxColumn2
+            // 
+            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
+            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn2.Width = 50;
+            // 
+            // operacionDataGridViewTextBoxColumn2
+            // 
+            this.operacionDataGridViewTextBoxColumn2.DataPropertyName = "Operacion";
+            this.operacionDataGridViewTextBoxColumn2.HeaderText = "Operacion";
+            this.operacionDataGridViewTextBoxColumn2.Name = "operacionDataGridViewTextBoxColumn2";
+            this.operacionDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // resultadoDataGridViewTextBoxColumn
+            // 
+            this.resultadoDataGridViewTextBoxColumn.DataPropertyName = "Resultado";
+            this.resultadoDataGridViewTextBoxColumn.HeaderText = "Resultado";
+            this.resultadoDataGridViewTextBoxColumn.Name = "resultadoDataGridViewTextBoxColumn";
+            this.resultadoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tiempoMaximoDataGridViewTextBoxColumn2
+            // 
+            this.tiempoMaximoDataGridViewTextBoxColumn2.DataPropertyName = "TiempoMaximo";
+            this.tiempoMaximoDataGridViewTextBoxColumn2.HeaderText = "TiempoMaximo";
+            this.tiempoMaximoDataGridViewTextBoxColumn2.Name = "tiempoMaximoDataGridViewTextBoxColumn2";
+            this.tiempoMaximoDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.tiempoMaximoDataGridViewTextBoxColumn2.Visible = false;
+            // 
             // procesosTerminadosBS
             // 
             this.procesosTerminadosBS.DataSource = typeof(Actividad1.Proceso);
-            // 
-            // procesoActualBS
-            // 
-            this.procesoActualBS.DataSource = typeof(Actividad1.Proceso);
-            // 
-            // programadorDataGridViewTextBoxColumn
-            // 
-            this.programadorDataGridViewTextBoxColumn.DataPropertyName = "Programador";
-            this.programadorDataGridViewTextBoxColumn.HeaderText = "Programador";
-            this.programadorDataGridViewTextBoxColumn.Name = "programadorDataGridViewTextBoxColumn";
-            this.programadorDataGridViewTextBoxColumn.ReadOnly = true;
-            this.programadorDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // operacionDataGridViewTextBoxColumn
-            // 
-            this.operacionDataGridViewTextBoxColumn.DataPropertyName = "Operacion";
-            this.operacionDataGridViewTextBoxColumn.HeaderText = "Operacion";
-            this.operacionDataGridViewTextBoxColumn.Name = "operacionDataGridViewTextBoxColumn";
-            this.operacionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.operacionDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // dato1DataGridViewTextBoxColumn
-            // 
-            this.dato1DataGridViewTextBoxColumn.DataPropertyName = "Dato1";
-            this.dato1DataGridViewTextBoxColumn.HeaderText = "Dato1";
-            this.dato1DataGridViewTextBoxColumn.Name = "dato1DataGridViewTextBoxColumn";
-            this.dato1DataGridViewTextBoxColumn.ReadOnly = true;
-            this.dato1DataGridViewTextBoxColumn.Visible = false;
-            // 
-            // dato2DataGridViewTextBoxColumn
-            // 
-            this.dato2DataGridViewTextBoxColumn.DataPropertyName = "Dato2";
-            this.dato2DataGridViewTextBoxColumn.HeaderText = "Dato2";
-            this.dato2DataGridViewTextBoxColumn.Name = "dato2DataGridViewTextBoxColumn";
-            this.dato2DataGridViewTextBoxColumn.ReadOnly = true;
-            this.dato2DataGridViewTextBoxColumn.Visible = false;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tiempoMaximoDataGridViewTextBoxColumn
-            // 
-            this.tiempoMaximoDataGridViewTextBoxColumn.DataPropertyName = "TiempoMaximo";
-            this.tiempoMaximoDataGridViewTextBoxColumn.HeaderText = "TiempoMaximo";
-            this.tiempoMaximoDataGridViewTextBoxColumn.Name = "tiempoMaximoDataGridViewTextBoxColumn";
-            this.tiempoMaximoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // procesosListosBS
-            // 
-            this.procesosListosBS.DataSource = typeof(Actividad1.Proceso);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -393,83 +442,68 @@
             this.tiempoTranscurridoDataGridViewTextBoxColumn.ReadOnly = true;
             this.tiempoTranscurridoDataGridViewTextBoxColumn.Width = 130;
             // 
-            // idDataGridViewTextBoxColumn2
+            // procesoActualBS
             // 
-            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
-            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn2.Width = 50;
+            this.procesoActualBS.DataSource = typeof(Actividad1.Proceso);
             // 
-            // operacionDataGridViewTextBoxColumn2
+            // programadorDataGridViewTextBoxColumn
             // 
-            this.operacionDataGridViewTextBoxColumn2.DataPropertyName = "Operacion";
-            this.operacionDataGridViewTextBoxColumn2.HeaderText = "Operacion";
-            this.operacionDataGridViewTextBoxColumn2.Name = "operacionDataGridViewTextBoxColumn2";
-            this.operacionDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.programadorDataGridViewTextBoxColumn.DataPropertyName = "Programador";
+            this.programadorDataGridViewTextBoxColumn.HeaderText = "Programador";
+            this.programadorDataGridViewTextBoxColumn.Name = "programadorDataGridViewTextBoxColumn";
+            this.programadorDataGridViewTextBoxColumn.ReadOnly = true;
+            this.programadorDataGridViewTextBoxColumn.Visible = false;
             // 
-            // resultadoDataGridViewTextBoxColumn
+            // operacionDataGridViewTextBoxColumn
             // 
-            this.resultadoDataGridViewTextBoxColumn.DataPropertyName = "Resultado";
-            this.resultadoDataGridViewTextBoxColumn.HeaderText = "Resultado";
-            this.resultadoDataGridViewTextBoxColumn.Name = "resultadoDataGridViewTextBoxColumn";
-            this.resultadoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.operacionDataGridViewTextBoxColumn.DataPropertyName = "Operacion";
+            this.operacionDataGridViewTextBoxColumn.HeaderText = "Operacion";
+            this.operacionDataGridViewTextBoxColumn.Name = "operacionDataGridViewTextBoxColumn";
+            this.operacionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.operacionDataGridViewTextBoxColumn.Visible = false;
             // 
-            // TiempoLlegada
+            // dato1DataGridViewTextBoxColumn
             // 
-            this.TiempoLlegada.DataPropertyName = "TiempoLlegada";
-            this.TiempoLlegada.HeaderText = "TiempoLlegada";
-            this.TiempoLlegada.Name = "TiempoLlegada";
-            this.TiempoLlegada.ReadOnly = true;
+            this.dato1DataGridViewTextBoxColumn.DataPropertyName = "Dato1";
+            this.dato1DataGridViewTextBoxColumn.HeaderText = "Dato1";
+            this.dato1DataGridViewTextBoxColumn.Name = "dato1DataGridViewTextBoxColumn";
+            this.dato1DataGridViewTextBoxColumn.ReadOnly = true;
+            this.dato1DataGridViewTextBoxColumn.Visible = false;
             // 
-            // TiempoFinalización
+            // dato2DataGridViewTextBoxColumn
             // 
-            this.TiempoFinalización.DataPropertyName = "TiempoFinalización";
-            this.TiempoFinalización.HeaderText = "TiempoFinalización";
-            this.TiempoFinalización.Name = "TiempoFinalización";
-            this.TiempoFinalización.ReadOnly = true;
+            this.dato2DataGridViewTextBoxColumn.DataPropertyName = "Dato2";
+            this.dato2DataGridViewTextBoxColumn.HeaderText = "Dato2";
+            this.dato2DataGridViewTextBoxColumn.Name = "dato2DataGridViewTextBoxColumn";
+            this.dato2DataGridViewTextBoxColumn.ReadOnly = true;
+            this.dato2DataGridViewTextBoxColumn.Visible = false;
             // 
-            // TiempoRetorno
+            // idDataGridViewTextBoxColumn
             // 
-            this.TiempoRetorno.DataPropertyName = "TiempoRetorno";
-            this.TiempoRetorno.HeaderText = "TiempoRetorno";
-            this.TiempoRetorno.Name = "TiempoRetorno";
-            this.TiempoRetorno.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // TiempoRespuesta
+            // tiempoMaximoDataGridViewTextBoxColumn
             // 
-            this.TiempoRespuesta.DataPropertyName = "TiempoRespuesta";
-            this.TiempoRespuesta.HeaderText = "TiempoRespuesta";
-            this.TiempoRespuesta.Name = "TiempoRespuesta";
-            this.TiempoRespuesta.ReadOnly = true;
+            this.tiempoMaximoDataGridViewTextBoxColumn.DataPropertyName = "TiempoMaximo";
+            this.tiempoMaximoDataGridViewTextBoxColumn.HeaderText = "TiempoMaximo";
+            this.tiempoMaximoDataGridViewTextBoxColumn.Name = "tiempoMaximoDataGridViewTextBoxColumn";
+            this.tiempoMaximoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // TiempoEspera
+            // procesosListosBS
             // 
-            this.TiempoEspera.DataPropertyName = "TiempoEspera";
-            this.TiempoEspera.HeaderText = "TiempoEspera";
-            this.TiempoEspera.Name = "TiempoEspera";
-            this.TiempoEspera.ReadOnly = true;
-            // 
-            // TiempoServicio
-            // 
-            this.TiempoServicio.DataPropertyName = "TiempoServicio";
-            this.TiempoServicio.HeaderText = "TiempoServicio";
-            this.TiempoServicio.Name = "TiempoServicio";
-            this.TiempoServicio.ReadOnly = true;
-            // 
-            // tiempoMaximoDataGridViewTextBoxColumn2
-            // 
-            this.tiempoMaximoDataGridViewTextBoxColumn2.DataPropertyName = "TiempoMaximo";
-            this.tiempoMaximoDataGridViewTextBoxColumn2.HeaderText = "TiempoMaximo";
-            this.tiempoMaximoDataGridViewTextBoxColumn2.Name = "tiempoMaximoDataGridViewTextBoxColumn2";
-            this.tiempoMaximoDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.tiempoMaximoDataGridViewTextBoxColumn2.Visible = false;
+            this.procesosListosBS.DataSource = typeof(Actividad1.Proceso);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 686);
+            this.Controls.Add(this.buttonQuantum);
+            this.Controls.Add(this.quantumLabel);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView4);
             this.Controls.Add(this.button1);
@@ -546,6 +580,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TiempoEspera;
         private System.Windows.Forms.DataGridViewTextBoxColumn TiempoServicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn tiempoMaximoDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label quantumLabel;
+        private System.Windows.Forms.Button buttonQuantum;
     }
 }
 
