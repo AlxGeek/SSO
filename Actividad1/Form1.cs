@@ -152,6 +152,7 @@ namespace Actividad1
 
                         procesoEjecucion[0].TiempoTranscurrido++;
                         procesoEjecucion[0].TiempoRestante--;
+                        procesoEjecucion[0].TiempoServicio = procesoEjecucion[0].TiempoTranscurrido;
 
 
                         switch (procesoEjecucion[0].Operacion)
