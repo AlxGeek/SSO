@@ -94,6 +94,11 @@ namespace Actividad1
                             p.TiempoBloqueado++;
                         }
 
+                        foreach (Proceso p in procesosListos)
+                        {
+                            p.TiempoEspera++;
+                        }
+
                         for (int j = 0; j < procesosBloqueados.Count; j++)
                         {
                             if (procesosBloqueados[j].TiempoBloqueado >= 10)
