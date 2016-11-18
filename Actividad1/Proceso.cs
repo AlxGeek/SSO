@@ -31,7 +31,7 @@ namespace Actividad1
         int dato1,
         int dato2,
         int tiempoMaximo,
-        int id, string resultado)
+        int id, string resultado, int tam)
         {
             Operacion = operacion;
             Dato1 = dato1;
@@ -44,6 +44,8 @@ namespace Actividad1
             TiempoBloqueado = 0;
             TiempoEspera = 0;
             TiempoRespuesta = -1;
+
+            Tamanio = tam;
         }
 
         public Proceso(
@@ -51,7 +53,7 @@ namespace Actividad1
         int dato1,
         int dato2,
         int tiempoMaximo,
-        int id, string resultado, string estado)
+        int id, string resultado, string estado, int tam)
         {
             Operacion = operacion;
             Dato1 = dato1;
@@ -65,6 +67,8 @@ namespace Actividad1
             TiempoBloqueado = 0;
             TiempoEspera = 0;
             TiempoRespuesta = -1;
+
+            Tamanio = tam;
         }
 
         private string programador;
@@ -77,6 +81,7 @@ namespace Actividad1
         private int tiempoRestante;
         private int tiempoTranscurrido;
         private int lote;
+        private int tamanio;
 
         private string estado;
 
@@ -88,6 +93,7 @@ namespace Actividad1
         private float tiempoServicio;
         private float tiempoBloqueado;
 
+        private List<int> idMarcos = new List<int>();
 
         public string Programador
         {
@@ -320,6 +326,32 @@ namespace Actividad1
             set
             {
                 estado = value;
+            }
+        }
+
+        public int Tamanio
+        {
+            get
+            {
+                return tamanio;
+            }
+
+            set
+            {
+                tamanio = value;
+            }
+        }
+
+        public List<int> IdMarcos
+        {
+            get
+            {
+                return idMarcos;
+            }
+
+            set
+            {
+                idMarcos = value;
             }
         }
     }

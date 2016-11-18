@@ -36,7 +36,7 @@ namespace Actividad1
                         operations[rnd.Next(0, operations.Length)], rnd.Next(1,100),
                         rnd.Next(1, 100),
                         rnd.Next(5, 15),
-                        i, "0")
+                        i, "0", NumeroProcesos.rnd.Next(15, 50))
                         );
 
             }

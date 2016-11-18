@@ -23,6 +23,8 @@ namespace Actividad1
 
         private int n;
 
+        private List<Marco> marcos = new List<Marco>();
+
         private List<Proceso> procesosNuevos = new List<Proceso>();
         private List<Proceso> procesosListos = new List<Proceso>();
         private List<Proceso> procesoEjecucion = new List<Proceso>();
@@ -36,6 +38,13 @@ namespace Actividad1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            marcos.Add(new Marco(0, "100%"));
+            marcos.Add(new Marco(1, "100%"));
+            for (int ii = 2; ii < 32; ii++)
+                marcos.Add(new Marco(ii, "0%"));
+
+            marcoBindingSource.DataSource = marcos;
+            procesosNuevosBS.DataSource = procesosNuevos;
             procesosListosBS.DataSource = procesosListos;
             procesosBloqueadosBS.DataSource = procesosBloqueados;
             procesoActualBS.DataSource = procesoEjecucion;
@@ -60,11 +69,43 @@ namespace Actividad1
             {
                 if (i == 5)
                     break;
-                procesosNuevos[0].TiempoLlegada = time;
-                procesosNuevos[0].Estado = "Listo";
-                procesosListos.Add(procesosNuevos[0]);
-                procesosNuevos.RemoveAt(0);
-                i++;
+
+
+                int tamAux = procesosNuevos[0].Tamanio;
+                bool hayEspacio = false;
+                for (int ii = 2; ii < 32; ii++)
+                {
+                    if (marcos[ii].Memorian == 0)
+                    {
+                        if (tamAux >= 4)
+                        {
+                            marcos[ii].Memorian = 4;
+                            tamAux -= 4;
+                            procesosNuevos[0].IdMarcos.Add(ii);
+                        }
+                        else
+                        {
+                            marcos[ii].Memorian = tamAux;
+                            procesosNuevos[0].IdMarcos.Add(ii);
+                            hayEspacio = true;
+                            break;
+                        }
+                    }
+                }
+                if (hayEspacio)
+                {
+                    procesosNuevos[0].TiempoLlegada = time;
+                    procesosNuevos[0].Estado = "Listo";
+                    procesosListos.Add(procesosNuevos[0]);
+                    procesosNuevos.RemoveAt(0);
+                    i++;
+                }
+                else
+                {
+                    foreach (int p in procesosNuevos[0].IdMarcos)
+                        marcos[p].Memorian = 0;
+                    break;
+                }
 
             }
 
@@ -85,9 +126,9 @@ namespace Actividad1
                         procesoEjecucion[0].TiempoRespuesta = time - procesoEjecucion[0].TiempoLlegada;
                     }
 
-                    int nquantum = 0; 
+                    int nquantum = 0;
                     while (procesoEjecucion[0].TiempoRestante > 0 && noBloqueado)
-                    {                        
+                    {
                         foreach (Proceso p in procesosBloqueados)
                         {
                             p.TiempoBloqueado++;
@@ -146,6 +187,8 @@ namespace Actividad1
                         time++;
                         labelTime.Text = time.ToString();
 
+                        marcoBindingSource.ResetBindings(false);
+                        procesosNuevosBS.ResetBindings(false);
                         procesosListosBS.ResetBindings(false);
                         procesosBloqueadosBS.ResetBindings(false);
                         procesosTerminadosBS.ResetBindings(false);
@@ -170,7 +213,7 @@ namespace Actividad1
                             procesosListos.Add(procesoEjecucion[0]);
                             break;
                         }
-                        
+
                     }
 
                     if (procesoEjecucion[0].TiempoRestante <= 0)
@@ -182,8 +225,15 @@ namespace Actividad1
                         if (procesoEjecucion[0].Id != -1)
                         {
                             procesoEjecucion[0].Estado = "Terminado";
+
+                            foreach (int p in procesoEjecucion[0].IdMarcos)
+                                marcos[p].Memorian = 0;
+
                             procesosTerminados.Add(procesoEjecucion[0]);
+
+
                         }
+
                     }
 
                     procesoEjecucion.Clear();
@@ -214,12 +264,14 @@ namespace Actividad1
                                 procesosBloqueados.RemoveAt(j);
                                 j--;
                             }
-                        }                        
+                        }
 
                         System.Threading.Thread.Sleep(500);
                         time++;
                         labelTime.Text = time.ToString();
 
+                        marcoBindingSource.ResetBindings(false);
+                        procesosNuevosBS.ResetBindings(false);
                         procesosListosBS.ResetBindings(false);
                         procesosBloqueadosBS.ResetBindings(false);
                         procesosTerminadosBS.ResetBindings(false);
@@ -238,16 +290,47 @@ namespace Actividad1
                     }
                 }
 
-                
+
 
                 while ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) < 5
                     && procesosNuevos.Count != 0)
                 {
-                    procesosNuevos[0].TiempoLlegada = time;
-                    procesosNuevos[0].Estado = "Listo";
-                    procesosListos.Add(procesosNuevos[0]);
-                    procesosNuevos.RemoveAt(0);
 
+                    int tamAux = procesosNuevos[0].Tamanio;
+                    bool hayEspacio = false;
+                    for (int ii = 2; ii < 32; ii++)
+                    {
+                        if (marcos[ii].Memorian == 0)
+                        {
+                            if (tamAux >= 4)
+                            {
+                                marcos[ii].Memorian = 4;
+                                tamAux -= 4;
+                                procesosNuevos[0].IdMarcos.Add(ii);
+                            }
+                            else
+                            {
+                                marcos[ii].Memorian = tamAux;
+                                procesosNuevos[0].IdMarcos.Add(ii);
+                                hayEspacio = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (hayEspacio)
+                    {
+
+                        procesosNuevos[0].TiempoLlegada = time;
+                        procesosNuevos[0].Estado = "Listo";
+                        procesosListos.Add(procesosNuevos[0]);
+                        procesosNuevos.RemoveAt(0);
+                    }
+                    else
+                    {
+                        foreach (int p in procesosNuevos[0].IdMarcos)
+                            marcos[p].Memorian = 0;
+                        break;
+                    }
                 }
 
 
@@ -274,7 +357,8 @@ namespace Actividad1
                 case 'b':
                 case 'B':
                     List<Proceso> allProcess = procesosNuevos.Concat(procesosListos.Concat(procesoEjecucion.Concat(procesosBloqueados.Concat(procesosTerminados).ToList()).ToList()).ToList()).ToList();
-                    foreach (Proceso p in allProcess) {
+                    foreach (Proceso p in allProcess)
+                    {
                         //p.TiempoFinalización = time;
                         //p.TiempoRetorno = p.TiempoFinalización - p.TiempoLlegada;
                         p.TiempoServicio = p.TiempoTranscurrido;
@@ -291,9 +375,9 @@ namespace Actividad1
                         NumeroProcesos.operations[NumeroProcesos.rnd.Next(0, NumeroProcesos.operations.Length)], NumeroProcesos.rnd.Next(1, 100),
                         NumeroProcesos.rnd.Next(1, 100),
                         NumeroProcesos.rnd.Next(5, 15),
-                        NumeroProcesos.i++, "0", "Nuevo")
+                        NumeroProcesos.i++, "0", "Nuevo", NumeroProcesos.rnd.Next(1, 12))
                         );
-                    
+
                     labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
 
                     break;

@@ -53,6 +53,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.quantumLabel = new System.Windows.Forms.Label();
             this.buttonQuantum = new System.Windows.Forms.Button();
+            this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.dataGridView6 = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.idDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tamanioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procesosNuevosBS = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.memoriaUsadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marcoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.procesosBloqueadosBS = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,20 +85,26 @@
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoMaximoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.procesosListosBS = new System.Windows.Forms.BindingSource(this.components);
+            this.procesoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.procesosNuevosBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marcoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosBloqueadosBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosTerminadosBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesoActualBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosListosBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.procesoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 27);
+            this.label1.Location = new System.Drawing.Point(163, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 0;
@@ -98,7 +113,7 @@
             // labelProcesosNuevos
             // 
             this.labelProcesosNuevos.AutoSize = true;
-            this.labelProcesosNuevos.Location = new System.Drawing.Point(152, 27);
+            this.labelProcesosNuevos.Location = new System.Drawing.Point(276, 23);
             this.labelProcesosNuevos.Name = "labelProcesosNuevos";
             this.labelProcesosNuevos.Size = new System.Drawing.Size(13, 13);
             this.labelProcesosNuevos.TabIndex = 1;
@@ -119,7 +134,7 @@
             this.tiempoMaximoDataGridViewTextBoxColumn,
             this.TiempoRestante});
             this.dataGridView1.DataSource = this.procesosListosBS;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 193);
+            this.dataGridView1.Location = new System.Drawing.Point(349, 194);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(360, 208);
@@ -149,7 +164,7 @@
             this.tiempoRestanteDataGridViewTextBoxColumn,
             this.tiempoTranscurridoDataGridViewTextBoxColumn});
             this.dataGridView2.DataSource = this.procesoActualBS;
-            this.dataGridView2.Location = new System.Drawing.Point(54, 75);
+            this.dataGridView2.Location = new System.Drawing.Point(116, 76);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(820, 80);
@@ -173,10 +188,10 @@
             this.TiempoServicio,
             this.tiempoMaximoDataGridViewTextBoxColumn2});
             this.dataGridView3.DataSource = this.procesosTerminadosBS;
-            this.dataGridView3.Location = new System.Drawing.Point(12, 425);
+            this.dataGridView3.Location = new System.Drawing.Point(71, 441);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.Size = new System.Drawing.Size(899, 248);
+            this.dataGridView3.Size = new System.Drawing.Size(913, 248);
             this.dataGridView3.TabIndex = 6;
             // 
             // TiempoLlegada
@@ -224,7 +239,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(605, 27);
+            this.label5.Location = new System.Drawing.Point(925, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 7;
@@ -233,7 +248,7 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(666, 27);
+            this.labelTime.Location = new System.Drawing.Point(986, 23);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(13, 13);
             this.labelTime.TabIndex = 8;
@@ -242,7 +257,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(477, 45);
+            this.label7.Location = new System.Drawing.Point(476, 47);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 9;
@@ -251,7 +266,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(182, 168);
+            this.label8.Location = new System.Drawing.Point(497, 169);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 10;
@@ -260,7 +275,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(460, 409);
+            this.label9.Location = new System.Drawing.Point(446, 415);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(109, 13);
             this.label9.TabIndex = 11;
@@ -268,7 +283,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(763, 22);
+            this.button1.Location = new System.Drawing.Point(1061, 23);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 12;
@@ -287,10 +302,10 @@
             this.idDataGridViewTextBoxColumn3,
             this.TiempoBloqueado});
             this.dataGridView4.DataSource = this.procesosBloqueadosBS;
-            this.dataGridView4.Location = new System.Drawing.Point(626, 193);
+            this.dataGridView4.Location = new System.Drawing.Point(767, 194);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.ReadOnly = true;
-            this.dataGridView4.Size = new System.Drawing.Size(266, 208);
+            this.dataGridView4.Size = new System.Drawing.Size(256, 208);
             this.dataGridView4.TabIndex = 13;
             // 
             // TiempoBloqueado
@@ -303,7 +318,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(696, 168);
+            this.label2.Location = new System.Drawing.Point(850, 169);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 14;
@@ -312,7 +327,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(218, 27);
+            this.label3.Location = new System.Drawing.Point(687, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 13);
             this.label3.TabIndex = 15;
@@ -321,7 +336,7 @@
             // quantumLabel
             // 
             this.quantumLabel.AutoSize = true;
-            this.quantumLabel.Location = new System.Drawing.Point(334, 27);
+            this.quantumLabel.Location = new System.Drawing.Point(803, 23);
             this.quantumLabel.Name = "quantumLabel";
             this.quantumLabel.Size = new System.Drawing.Size(13, 13);
             this.quantumLabel.TabIndex = 16;
@@ -329,13 +344,86 @@
             // 
             // buttonQuantum
             // 
-            this.buttonQuantum.Location = new System.Drawing.Point(871, 22);
+            this.buttonQuantum.Location = new System.Drawing.Point(1181, 23);
             this.buttonQuantum.Name = "buttonQuantum";
             this.buttonQuantum.Size = new System.Drawing.Size(75, 23);
             this.buttonQuantum.TabIndex = 17;
             this.buttonQuantum.Text = "Quantum";
             this.buttonQuantum.UseVisualStyleBackColor = true;
             this.buttonQuantum.Click += new System.EventHandler(this.buttonQuantum_Click);
+            // 
+            // dataGridView5
+            // 
+            this.dataGridView5.AllowUserToAddRows = false;
+            this.dataGridView5.AllowUserToDeleteRows = false;
+            this.dataGridView5.AutoGenerateColumns = false;
+            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn4,
+            this.memoriaUsadaDataGridViewTextBoxColumn});
+            this.dataGridView5.DataSource = this.marcoBindingSource;
+            this.dataGridView5.Location = new System.Drawing.Point(1061, 91);
+            this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.ReadOnly = true;
+            this.dataGridView5.Size = new System.Drawing.Size(195, 598);
+            this.dataGridView5.TabIndex = 18;
+            // 
+            // dataGridView6
+            // 
+            this.dataGridView6.AutoGenerateColumns = false;
+            this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn5,
+            this.tamanioDataGridViewTextBoxColumn});
+            this.dataGridView6.DataSource = this.procesosNuevosBS;
+            this.dataGridView6.Location = new System.Drawing.Point(32, 194);
+            this.dataGridView6.Name = "dataGridView6";
+            this.dataGridView6.Size = new System.Drawing.Size(269, 208);
+            this.dataGridView6.TabIndex = 19;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(135, 169);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Cola Nuevos";
+            // 
+            // idDataGridViewTextBoxColumn5
+            // 
+            this.idDataGridViewTextBoxColumn5.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn5.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn5.Name = "idDataGridViewTextBoxColumn5";
+            // 
+            // tamanioDataGridViewTextBoxColumn
+            // 
+            this.tamanioDataGridViewTextBoxColumn.DataPropertyName = "Tamanio";
+            this.tamanioDataGridViewTextBoxColumn.HeaderText = "Memoria";
+            this.tamanioDataGridViewTextBoxColumn.Name = "tamanioDataGridViewTextBoxColumn";
+            // 
+            // procesosNuevosBS
+            // 
+            this.procesosNuevosBS.DataSource = typeof(Actividad1.Proceso);
+            // 
+            // idDataGridViewTextBoxColumn4
+            // 
+            this.idDataGridViewTextBoxColumn4.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn4.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn4.Name = "idDataGridViewTextBoxColumn4";
+            this.idDataGridViewTextBoxColumn4.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // memoriaUsadaDataGridViewTextBoxColumn
+            // 
+            this.memoriaUsadaDataGridViewTextBoxColumn.DataPropertyName = "MemoriaUsada";
+            this.memoriaUsadaDataGridViewTextBoxColumn.HeaderText = "MemoriaUsada";
+            this.memoriaUsadaDataGridViewTextBoxColumn.Name = "memoriaUsadaDataGridViewTextBoxColumn";
+            this.memoriaUsadaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // marcoBindingSource
+            // 
+            this.marcoBindingSource.DataSource = typeof(Actividad1.Marco);
             // 
             // idDataGridViewTextBoxColumn3
             // 
@@ -496,11 +584,18 @@
             // 
             this.procesosListosBS.DataSource = typeof(Actividad1.Proceso);
             // 
+            // procesoBindingSource
+            // 
+            this.procesoBindingSource.DataSource = typeof(Actividad1.Proceso);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 686);
+            this.ClientSize = new System.Drawing.Size(1277, 701);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.dataGridView6);
+            this.Controls.Add(this.dataGridView5);
             this.Controls.Add(this.buttonQuantum);
             this.Controls.Add(this.quantumLabel);
             this.Controls.Add(this.label3);
@@ -525,10 +620,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.procesosNuevosBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.marcoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosBloqueadosBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosTerminadosBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesoActualBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesosListosBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.procesoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,6 +683,16 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label quantumLabel;
         private System.Windows.Forms.Button buttonQuantum;
+        private System.Windows.Forms.DataGridView dataGridView5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn memoriaUsadaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource marcoBindingSource;
+        private System.Windows.Forms.BindingSource procesoBindingSource;
+        private System.Windows.Forms.DataGridView dataGridView6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tamanioDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource procesosNuevosBS;
+        private System.Windows.Forms.Label label4;
     }
 }
 
