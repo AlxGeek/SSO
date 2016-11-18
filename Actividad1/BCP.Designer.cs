@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.procesoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.programadorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +48,7 @@
             this.tiempoTranscurridoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.loteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiempoBloqueadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procesoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.procesoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -83,12 +83,8 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(996, 285);
+            this.dataGridView1.Size = new System.Drawing.Size(1121, 530);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // procesoBindingSource
-            // 
-            this.procesoBindingSource.DataSource = typeof(Actividad1.Proceso);
             // 
             // programadorDataGridViewTextBoxColumn
             // 
@@ -226,11 +222,15 @@
             this.tiempoBloqueadoDataGridViewTextBoxColumn.ReadOnly = true;
             this.tiempoBloqueadoDataGridViewTextBoxColumn.Visible = false;
             // 
+            // procesoBindingSource
+            // 
+            this.procesoBindingSource.DataSource = typeof(Actividad1.Proceso);
+            // 
             // BCP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(996, 285);
+            this.ClientSize = new System.Drawing.Size(1121, 530);
             this.Controls.Add(this.dataGridView1);
             this.Name = "BCP";
             this.Text = "BCP";
