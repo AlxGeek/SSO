@@ -29,6 +29,7 @@ namespace Actividad1
         private List<Proceso> procesosListos = new List<Proceso>();
         private List<Proceso> procesoEjecucion = new List<Proceso>();
         private List<Proceso> procesosBloqueados = new List<Proceso>();
+        private List<Proceso> procesosSuspendidos = new List<Proceso>();
         private List<Proceso> procesosTerminados = new List<Proceso>();
 
         public Form1()
@@ -38,10 +39,13 @@ namespace Actividad1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            marcos.Add(new Marco(0, "100%"));
-            marcos.Add(new Marco(1, "100%"));
+
+            marcos.Add(new Marco(0, 4, "SO"));
+            marcos.Add(new Marco(1, 4, "SO"));
             for (int ii = 2; ii < 32; ii++)
-                marcos.Add(new Marco(ii, "0%"));
+            {
+                marcos.Add(new Marco(ii, 0));
+            }
 
             marcoBindingSource.DataSource = marcos;
             procesosNuevosBS.DataSource = procesosNuevos;
@@ -49,7 +53,7 @@ namespace Actividad1
             procesosBloqueadosBS.DataSource = procesosBloqueados;
             procesoActualBS.DataSource = procesoEjecucion;
             procesosTerminadosBS.DataSource = procesosTerminados;
-
+            procesoSuspendidoBS.DataSource = procesosSuspendidos;
 
 
             (new NumeroProcesos()).ShowDialog();
@@ -67,8 +71,8 @@ namespace Actividad1
             int i = 0;
             while (procesosNuevos.Count > 0)
             {
-                if (i == 5)
-                    break;
+                //if (i == 5)
+                //    break;
 
 
                 int tamAux = procesosNuevos[0].Tamanio;
@@ -77,7 +81,7 @@ namespace Actividad1
                 {
                     if (marcos[ii].Memorian == 0)
                     {
-                        if (tamAux >= 4)
+                        if (tamAux > 4)
                         {
                             marcos[ii].Memorian = 4;
                             tamAux -= 4;
@@ -94,6 +98,11 @@ namespace Actividad1
                 }
                 if (hayEspacio)
                 {
+                    foreach (int p in procesosNuevos[0].IdMarcos)
+                    {
+                        marcos[p].Estado = "Listo";
+                        marcos[p].IdProceso = procesosNuevos[0].Id.ToString();
+                    }
                     procesosNuevos[0].TiempoLlegada = time;
                     procesosNuevos[0].Estado = "Listo";
                     procesosListos.Add(procesosNuevos[0]);
@@ -103,7 +112,11 @@ namespace Actividad1
                 else
                 {
                     foreach (int p in procesosNuevos[0].IdMarcos)
+                    {
+                        marcos[p].Estado = "";
                         marcos[p].Memorian = 0;
+                        marcos[p].IdProceso = "";
+                    }
                     break;
                 }
 
@@ -118,6 +131,8 @@ namespace Actividad1
                 if (procesosListos.Count > 0)
                 {
                     procesosListos[0].Estado = "Ejecucion";
+                    foreach (int p in procesosListos[0].IdMarcos)
+                        marcos[p].Estado = "Ejecucion";
                     procesoEjecucion.Add(procesosListos[0]);
                     procesosListos.RemoveAt(0);
 
@@ -141,9 +156,24 @@ namespace Actividad1
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
                         {
-                            if (procesosBloqueados[j].TiempoBloqueado >= 10)
+                            if (procesosBloqueados[j].TiempoBloqueado >= 20)
+                            {
+                                procesosBloqueados[j].Estado = "Suspendido";
+                                foreach (int p in procesosBloqueados[0].IdMarcos)
+                                {
+                                    marcos[p].Estado = "";
+                                    marcos[p].Memorian = 0;
+                                    marcos[p].IdProceso = "";
+                                }
+                                procesosSuspendidos.Add(procesosBloqueados[j]);
+                                procesosBloqueados.RemoveAt(j);
+                                j--;
+                            }
+                            else if (procesosBloqueados[j].TiempoBloqueado >= 10)
                             {
                                 procesosBloqueados[j].Estado = "Listo";
+                                foreach (int p in procesosBloqueados[0].IdMarcos)
+                                    marcos[p].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
                                 procesosBloqueados.RemoveAt(j);
                                 j--;
@@ -194,6 +224,7 @@ namespace Actividad1
                         procesosBloqueadosBS.ResetBindings(false);
                         procesosTerminadosBS.ResetBindings(false);
                         procesoActualBS.ResetBindings(false);
+                        procesoSuspendidoBS.ResetBindings(false);
 
                         Application.DoEvents();
 
@@ -211,6 +242,10 @@ namespace Actividad1
                         nquantum++;
                         if (nquantum >= quantum && procesoEjecucion[0].TiempoRestante != 0)
                         {
+                            foreach (int p in procesoEjecucion[0].IdMarcos)
+                            {
+                                marcos[p].Estado = "Listo";
+                            }
                             procesosListos.Add(procesoEjecucion[0]);
                             break;
                         }
@@ -228,7 +263,11 @@ namespace Actividad1
                             procesoEjecucion[0].Estado = "Terminado";
 
                             foreach (int p in procesoEjecucion[0].IdMarcos)
+                            {
+                                marcos[p].Estado = "";
                                 marcos[p].Memorian = 0;
+                                marcos[p].IdProceso = "";
+                            }
 
                             procesosTerminados.Add(procesoEjecucion[0]);
 
@@ -237,6 +276,12 @@ namespace Actividad1
 
                     }
 
+                    //foreach (int p in procesoEjecucion[0].IdMarcos)
+                    //{
+                    //    marcos[p].Memorian = 0;
+                    //    marcos[p].Estado = "";
+                    //    marcos[p].IdProceso = "";
+                    //}
                     procesoEjecucion.Clear();
 
                 }
@@ -258,9 +303,24 @@ namespace Actividad1
 
                         for (int j = 0; j < procesosBloqueados.Count; j++)
                         {
-                            if (procesosBloqueados[j].TiempoBloqueado >= 10)
+                            if (procesosBloqueados[j].TiempoBloqueado >= 20)
+                            {
+                                procesosBloqueados[j].Estado = "Suspendido";
+                                foreach (int p in procesosBloqueados[0].IdMarcos)
+                                {
+                                    marcos[p].Estado = "";
+                                    marcos[p].Memorian = 0;
+                                    marcos[p].IdProceso = "";
+                                }
+                                procesosSuspendidos.Add(procesosBloqueados[j]);
+                                procesosBloqueados.RemoveAt(j);
+                                j--;
+                            }
+                            else if (procesosBloqueados[j].TiempoBloqueado >= 10)
                             {
                                 procesosBloqueados[j].Estado = "Listo";
+                                foreach (int p in procesosBloqueados[0].IdMarcos)
+                                    marcos[p].Estado = "Listo";
                                 procesosListos.Add(procesosBloqueados[j]);
                                 procesosBloqueados.RemoveAt(j);
                                 j--;
@@ -277,6 +337,7 @@ namespace Actividad1
                         procesosBloqueadosBS.ResetBindings(false);
                         procesosTerminadosBS.ResetBindings(false);
                         procesoActualBS.ResetBindings(false);
+                        procesoSuspendidoBS.ResetBindings(false);
 
                         Application.DoEvents();
 
@@ -287,14 +348,20 @@ namespace Actividad1
                             time--;
                         }
 
+                        //foreach (int p in procesoEjecucion[0].IdMarcos)
+                        //{
+                        //    marcos[p].Memorian = 0;
+                        //    marcos[p].Estado = "";
+                        //    marcos[p].IdProceso = "";
+                        //}
                         procesoEjecucion.Clear();
                     }
                 }
 
 
-
-                while ((procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) < 5
-                    && procesosNuevos.Count != 0)
+                //(procesosListos.Count + procesoEjecucion.Count + procesosBloqueados.Count) < 5 &&
+                while (
+                     procesosNuevos.Count != 0)
                 {
 
                     int tamAux = procesosNuevos[0].Tamanio;
@@ -303,7 +370,7 @@ namespace Actividad1
                     {
                         if (marcos[ii].Memorian == 0)
                         {
-                            if (tamAux >= 4)
+                            if (tamAux > 4)
                             {
                                 marcos[ii].Memorian = 4;
                                 tamAux -= 4;
@@ -320,16 +387,24 @@ namespace Actividad1
                     }
                     if (hayEspacio)
                     {
-
                         procesosNuevos[0].TiempoLlegada = time;
                         procesosNuevos[0].Estado = "Listo";
+                        foreach (int p in procesosNuevos[0].IdMarcos)
+                        {
+                            marcos[p].Estado = "Listo";
+                            marcos[p].IdProceso = procesosNuevos[0].Id.ToString();
+                        }
                         procesosListos.Add(procesosNuevos[0]);
                         procesosNuevos.RemoveAt(0);
                     }
                     else
                     {
                         foreach (int p in procesosNuevos[0].IdMarcos)
+                        {
                             marcos[p].Memorian = 0;
+                            marcos[p].Estado = "";
+                            marcos[p].IdProceso = "";
+                        }
                         break;
                     }
                 }
@@ -355,6 +430,65 @@ namespace Actividad1
         {
             switch (e.KeyChar)
             {
+                case 's':
+                case 'S':
+                    if (procesosBloqueados.Count > 0)
+                    {
+                        procesosBloqueados[0].TiempoBloqueado = 20;
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    if (procesosSuspendidos.Count > 0)
+                    {
+                        int tamAux = procesosSuspendidos[0].Tamanio;
+                        bool hayEspacio = false;
+                        for (int ii = 2; ii < 32; ii++)
+                        {
+                            if (marcos[ii].Memorian == 0)
+                            {
+                                if (tamAux > 4)
+                                {
+                                    marcos[ii].Memorian = 4;
+                                    tamAux -= 4;
+                                    procesosSuspendidos[0].IdMarcos.Add(ii);
+                                }
+                                else
+                                {
+                                    marcos[ii].Memorian = tamAux;
+                                    procesosSuspendidos[0].IdMarcos.Add(ii);
+                                    hayEspacio = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (hayEspacio)
+                        {                            
+                            procesosSuspendidos[0].Estado = "Bloqueado";
+                            procesosSuspendidos[0].TiempoBloqueado = 0;
+                            foreach (int p in procesosSuspendidos[0].IdMarcos)
+                            {
+                                marcos[p].Estado = "Bloqueado";
+                                marcos[p].IdProceso = procesosSuspendidos[0].Id.ToString();
+                            }
+                            procesosBloqueados.Add(procesosSuspendidos[0]);
+                            procesosSuspendidos.RemoveAt(0);
+                            noBloqueado = false;
+                        }
+                        else
+                        {
+                            foreach (int p in procesosSuspendidos[0].IdMarcos)
+                            {
+                                marcos[p].Memorian = 0;
+                                marcos[p].Estado = "";
+                                marcos[p].IdProceso = "";
+                            }
+                            break;
+                        }
+                    }
+
+
+                    break;
                 case 'b':
                 case 'B':
                     List<Proceso> allProcess = procesosNuevos.Concat(procesosListos.Concat(procesoEjecucion.Concat(procesosBloqueados.Concat(procesosTerminados).ToList()).ToList()).ToList()).ToList();
@@ -376,7 +510,7 @@ namespace Actividad1
                         NumeroProcesos.operations[NumeroProcesos.rnd.Next(0, NumeroProcesos.operations.Length)], NumeroProcesos.rnd.Next(1, 100),
                         NumeroProcesos.rnd.Next(1, 100),
                         NumeroProcesos.rnd.Next(5, 15),
-                        NumeroProcesos.i++, "0", "Nuevo", NumeroProcesos.rnd.Next(1, 12))
+                        NumeroProcesos.i++, "0", "Nuevo", NumeroProcesos.rnd.Next(6, 25))
                         );
 
                     labelProcesosNuevos.Text = procesosNuevos.Count.ToString();
@@ -386,6 +520,17 @@ namespace Actividad1
                 case 'W':
                     procesoEjecucion[0].TiempoRestante = 0;
                     procesoEjecucion[0].Resultado = "ERROR";
+                    foreach (int p in procesoEjecucion[0].IdMarcos)
+                    {
+                        marcos[p].Memorian = 0;
+                        marcos[p].Estado = "";
+                        marcos[p].IdProceso = "";
+                    }
+                    break;
+                case 't':
+                case 'T':
+                    TablaPaginas tp = new TablaPaginas(marcos);
+                    tp.ShowDialog();
                     break;
                 case 'p':
                 case 'P':
@@ -399,6 +544,8 @@ namespace Actividad1
                 case 'E':
                     if (procesoEjecucion.Count != 0 && procesoEjecucion[0].Id != -1)
                     {
+                        foreach (int p in procesoEjecucion[0].IdMarcos)
+                            marcos[p].Estado = "Bloqueado";
                         procesoEjecucion[0].TiempoBloqueado = 0;
                         procesoEjecucion[0].Estado = "Bloqueado";
                         procesosBloqueados.Add(procesoEjecucion[0]);

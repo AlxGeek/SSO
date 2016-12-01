@@ -71,6 +71,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Marco.cs" />
+    <Compile Include="MostrarMarco.cs" />
     <Compile Include="Proceso.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +80,12 @@
     </Compile>
     <Compile Include="NumeroProcesos.Designer.cs">
       <DependentUpon>NumeroProcesos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TablaPaginas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TablaPaginas.Designer.cs">
+      <DependentUpon>TablaPaginas.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="BCP.resx">
       <DependentUpon>BCP.cs</DependentUpon>
@@ -104,6 +111,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TablaPaginas.resx">
+      <DependentUpon>TablaPaginas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\Marco.datasource" />
     <None Include="Properties\DataSources\Proceso.datasource" />
     <None Include="Properties\Settings.settings">
